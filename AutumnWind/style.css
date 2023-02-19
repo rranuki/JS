@@ -1,0 +1,32 @@
+body{
+    margin: 0;
+    height: 100vh;
+    background: url("https://images.unsplash.com/photo-1504788363733-507549153474?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80");
+    background-size: cover;
+}
+
+span{
+    background:url("https://cdn2.iconfinder.com/data/icons/season-7/340/maple_season_autumn_nature_fall_leaf-256.png") ;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    pointer-events: none;
+    background-size: cover;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    animation: animate 8s linear;
+}
+
+@keyframes animate {
+    0%{
+       transform: translate(-50%, -50%); 
+       opacity: 1;
+       filter: hue-rotate(0);
+    }
+    100%{
+       transform: translate(-5000%, -50%); 
+       opacity: 1;
+       filter: hue-rotate(1000deg);
+    }
+}
