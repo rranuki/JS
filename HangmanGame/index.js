@@ -6,6 +6,7 @@ const GuessBoxEl = document.getElementById("GuessBox")
 const TurnsLeftEl = document.getElementById("turns-left")
 const HangmanEl = document.getElementById("image1")
 const WrongsRecordEl = document.getElementById("wrong-guesses")
+const GuessButtonEl = document.getElementById("GuessButton")
 
 let word = "";
 let length = "";
@@ -21,36 +22,112 @@ var wrongGuessesRecord = []
 
 
 function getWord() {
-    console.log(guessedLettersRecord)
-    word = InputEl.value;
-    InputEl.disabled = true;
-    word = word.toLowerCase()
-    console.log(word);
-    length = InputEl.value.length;
-    // console.log("word is "+ word+", length is "+length);
-    InputEl.value = "";
-    var inputAsArray = Array.from(word);
-    array = Array.from(word);
-    // console.log(inputAsArray);
-    // console.log(inputAsArray[2]);
-    duplicateArray = inputAsArray;
-    // console.log(duplicateArray);
+  console.log(guessedLettersRecord)
+  word = InputEl.value;
+  InputEl.disabled = true;
+  SubmitEL.disabled = true
+  GuessBoxEl.disabled = false;
+  GuessButtonEl.disabled = false;
+  word = word.toLowerCase()
+  console.log(word);
+  length = InputEl.value.length;
+  // console.log("word is "+ word+", length is "+length);
+  InputEl.value = "";
+  var inputAsArray = Array.from(word);
+  array = Array.from(word);
+  // console.log(inputAsArray);
+  // console.log(inputAsArray[2]);
+  duplicateArray = inputAsArray;
+  // console.log(duplicateArray);
 
-    for (let i = 0; i < length; i++) {
-        duplicateArray[i] = '_';
-    }
-    // console.log(duplicateArray)
-    displayString = duplicateArray.join(" ");
-    DashEl.innerText = displayString;
+  for (let i = 0; i < length; i++) {
+    duplicateArray[i] = '_';
+  }
+  // console.log(duplicateArray)
+  displayString = duplicateArray.join(" ");
+  DashEl.innerText = displayString;
 }
 
 function Guess() {
 
-    guess = GuessBoxEl.value;
+  guess = GuessBoxEl.value;
+  GuessBoxEl.value = ""
+  if ((guess.charCodeAt(0) > 64 && guess.charCodeAt(0) < 91) || (guess.charCodeAt(0) > 96 && guess.charCodeAt(0) < 123)) {
+    console.log("OH YEAH!")
+
+    console.log(guess.charCodeAt(0))
     guess = guess.toLowerCase()
-    GuessBoxEl.value = ""
     var wrong = 0
     console.log(guess)
+    if (guessedLettersRecord.includes(guess)) {
+      console.log("Try another letter")
+      // alert("You have already guessed this letter. Try another one!")
+    } else {
+      for (let i = 0; i < length; i++) {
+        // console.log(array)
+        if (guess == array[i]) {
+          duplicateArray[i] = array[i]
+          if (!duplicateArray.includes("_")) {
+            HangmanEl.src = "happyman.jpg"
+            GuessBoxEl.disabled = true
+
+          }
+        }
+        else {
+          console.log(" ")
+          wrong++
+        }
+        if (i == length - 1) {
+          guessedLettersRecord.push(guess)
+          console.log(guessedLettersRecord)
+        }
+      }
+
+      if (wrong == length) {
+        turnsLeft--
+        wrongGuessesRecord.push(guess)
+        console.log("Change image here! :D")
+        console.log(wrongGuessesRecord)
+
+        switch (turnsLeft) {
+          case 5:
+            HangmanEl.src = "head.jpg"
+            break;
+
+          case 4:
+            HangmanEl.src = "body.jpg"
+            break;
+
+          case 3:
+            HangmanEl.src = "arm1.jpg"
+            break;
+
+          case 2:
+            HangmanEl.src = "arm2.jpg"
+            break;
+
+          case 1:
+            HangmanEl.src = "leg1.jpg"
+            break;
+
+          case 0:
+            HangmanEl.src = "deadman.jpg"
+            break;
+
+          default:
+            HangmanEl.src = "stand.jpg"
+        }
+      }
+      if (turnsLeft == 0) {
+        GuessBoxEl.disabled = true
+      }
+
+      console.log(duplicateArray)
+      displayString = duplicateArray.join(" ")
+      DashEl.innerText = displayString
+      TurnsLeftEl.innerText = turnsLeft
+      WrongsRecordEl.innerText = wrongGuessesRecord.join("  ")
+    }
 
     // for (let j = 0; j < numberOfGuesses; j++){
     //     if ( guess = guessedLettersRecord[j]){
@@ -60,74 +137,9 @@ function Guess() {
     //     }
     // }
 
-    if (guessedLettersRecord.includes(guess)) {
-        console.log("Try another letter")
-    } else {
-        for (let i = 0; i < length; i++) {
-            // console.log(array)
-            if (guess == array[i]) {
-                duplicateArray[i] = array[i]
-                if (!duplicateArray.includes("_")) {
-                    HangmanEl.src = "happyman.jpg"
-                    GuessBoxEl.disabled = true
-
-                }
-            }
-            else {
-                console.log(" ")
-                wrong++
-            }
-            if (i == length - 1) {
-                guessedLettersRecord.push(guess)
-                console.log(guessedLettersRecord)
-            }
-        }
-
-        if (wrong == length) {
-            turnsLeft--
-            wrongGuessesRecord.push(guess)
-            console.log("Change image here! :D")
-            console.log(wrongGuessesRecord)
-
-            switch (turnsLeft) {
-                case 5:
-                    HangmanEl.src = "head.jpg"
-                    break;
-
-                case 4:
-                    HangmanEl.src = "body.jpg"
-                    break;
-
-                case 3:
-                    HangmanEl.src = "arm1.jpg"
-                    break;
-
-                case 2:
-                    HangmanEl.src = "arm2.jpg"
-                    break;
-
-                case 1:
-                    HangmanEl.src = "leg1.jpg"
-                    break;
-
-                case 0:
-                    HangmanEl.src = "deadman.jpg"
-                    break;
-
-                default:
-                    HangmanEl.src = "stand.jpg"
-            }
-        }
-        if (turnsLeft == 0) {
-            GuessBoxEl.disabled = true
-        }
-
-        console.log(duplicateArray)
-        displayString = duplicateArray.join(" ")
-        DashEl.innerText = displayString
-        TurnsLeftEl.innerText = turnsLeft
-        WrongsRecordEl.innerText = wrongGuessesRecord.join("  ")
-    }
+  } else {
+    console.log("You can't guess non-alphabetical characters, try again! :)")
+  }
 
 
 }
