@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman!</title>
+    
+</head>
+<body>
+    <div class="top">
+        <h2>Hangman!</h2>
+    </div>
+    <div class="bottom">
+<label id="dash">_</label>
+    </div>
+    <div class="right">
+<span class="turns-text">Number of turns left</span>
+<span class="turns-left" id="turns-left">6</span>
+    </div>
+    <div class="middle">
+<div class="hangman-container">Hangman goes here</div>
+<img src="stand.jpg" id="image1">
+    </div>
+    <div class="left">
+<span class="wrong-letters-label">Letters not in the word</span>
+<span class="wrong-letters" id="wrong-guesses">&nbsp</span>
+    </div>
+    <div class="below">
+        <p class="message">Type your word here. SHHH! Don't tell anyone!</p>
+<!-- 
+        <input type="text" id="input_id" value="">
+        <input type="button" value="Submit" onclick="wawa()" />
+        <div id="alert" style="color: red"></div> -->
+
+        <input type="text" maxlength="15" class="txt" id="txtid" value="">
+        <button class="submit" id="submit" onclick="getWord()">Submit</button>
+    </div>
+    <div class="top-left">
+        <span class="seconds">0</span>
+        <span class="minutes">0</span>
+        <span class="hours">0</span>
+    </div>
+
+    <div class="top-right">
+        <input type="text" class="GuessIt" maxlength="1" placeholder="Guess Here!" id="GuessBox" autocomplete="off" disabled>
+        <button class="GuessButton" onclick="Guess()" id="GuessButton" disabled>Guess!</button>
+    </div>
+    <link rel="stylesheet" href="style.css">
+    <script src="indexv4.js"></script>
+</body>
+</html>
